@@ -163,8 +163,12 @@ defmodule Modular.AreaAccess do
         do: run_mox(:defmock, [mock_impl(mod), [for: mod]])
   end
 
-  def install_stubs do
-    for mod <- areas(), do: run_mox(:stub_with, [mock_impl(mod), real_impl(mod)])
+  def install_stubs() do
+    install_stubs(areas())
+  end
+
+  def install_stubs(areas) do
+    for mod <- areas, do: run_mox(:stub_with, [mock_impl(mod), real_impl(mod)])
   end
 
   # We don't want Mox to be a compile-time dependency for this code because modular will be compiled
